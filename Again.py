@@ -111,7 +111,7 @@ def update_plot(frame):
         phase_dots[i].set_data([xPositions[i]], [proton.phase])
 
     # Only update the combined signal when MEG is zero
-    if np.all(widths == 0):  # Check if the MEG gradient is zero
+    if np.all(widths == 0) and megCounter >37:  # Check if the MEG gradient is zero
         combined_signal = sum(np.cos(omega * timePoint + proton.phase) for proton in protons)
         time_values.append(timePoint)
         signal_values.append(combined_signal)
@@ -127,7 +127,7 @@ def update_plot(frame):
 
     # Advance time and MEG counter
     timePoint += 0.005
-    megCounter = (megCounter + 1) % 50
+    megCounter = (megCounter + 1) % 60
 
     return proton_dots + list(bars) + phase_dots + [combined_line]
 
